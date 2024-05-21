@@ -21,12 +21,12 @@ getGraph <- function(datos, values) {
          subtitle = "Histograma de precipitación anual histórica\n", 
          caption = "Source: SENAMHI") +
     scale_color_manual(
-      values = c("Precipitación" = "blue", 
+      values = c("Precipitación (mm)" = "blue", 
                  "Precipitación Mínima" = "purple", 
                  "Precipitación Máxima" = "orange")) +
     theme_light() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-    theme(legend.position = c(0.5,0.8), 
+    theme(legend.position = "bottom", 
           legend.direction = "horizontal",  # Establecer la dirección de la leyenda
           legend.title = element_blank(),     # Opcional: eliminar el título de la leyenda
           legend.key.width = unit(1, "cm"))  # Opcional: ajustar el ancho de las teclas de la leyenda

@@ -21,24 +21,34 @@ reclean <- function(datos, values){
   #Eliminar valores bajos
   #creamos un array donde estén las filas con datos menores que los limites
   delete.data <- c()
+  
   #limpiar valores bajos
   for (i in 1:nrow(datos)) {
     if(datos$pp_max[i] < values[2]) {
       delete.data <- c(delete.data, i)
     }
   }
-  #Eliminamos las filas
-  print(delete.data)
-  datos <- datos[-delete.data, ]
+  
   #Eliminar valores altos
   for (i in 1:nrow(datos)){
     for (j in 2:ncol(datos)){
+      
       #comprobamos si los datos son mayores que el limite
       if(datos[i,j] > values[1]){
+        
         #cambiamos el valor a 0
         datos[i,j] <- 0
       }
     }
   }
+  
+  # Comprobamos que no hay datos para cambiar
+  if (is.null(delete.data)) {
+    print("no hay datos para corregir")
+    return(datos)
+  } else {
+    datos <- datos[-delete.data, ]
+  }
+  
   return(datos)
 }

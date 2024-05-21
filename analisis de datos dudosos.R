@@ -1,6 +1,7 @@
 ##Analisis de datos dudosos
 #importar funciones
 source("Valores kn.R")
+library(e1071)
 
 #Establecemos las variables globales
 coeSesgo1 <- 0.4 #Sí la asimetría de la estación es mayor
@@ -8,9 +9,8 @@ coeSesgo2 <- -0.4 #Sí la asimetría de la e(stación es menor
 
 ##Umbral de valores atipicos
 getXH <- function(datos){
-  library(e1071)
   #coeficiente de asimetría de las precipitaciones máximas logaritmicas
-  coeAsimetria <- skewness(datos$pp_log) 
+  coeAsimetria <- skewness(datos$pp_log)
   
   #Logaritmo medio
   x <- mean(datos$pp_log)
@@ -33,15 +33,15 @@ getXH <- function(datos){
   if(coeAsimetria > coeSesgo1){
     #Detectar datos dudosos altos
     print("Se detectan datos dudosos altos")
-    return(c(pH1,pH2))
   } else if (coeAsimetria < coeSesgo2){
-    #Detectar datos dudosos bajos
+    
+    # Detectar datos dudosos bajos
     print("Se detectan datos dudosos bajos")
-    return(c(pH1,pH2))
-  } else if (coeAsimetria < coeSesgo2 && coeAsimetria > coeSesgo1){
-    ##Detectar datos dudosos altos y bajos
+  } else if (coeAsimetria > coeSesgo2 && coeAsimetria < coeSesgo1){
+    
+    # Detectar datos dudosos altos y bajos
     print("Se detectan datos dudosos altos y bajos")
-    return(c(pH1,pH2))
   }
+  return(c(pH1,pH2))
 }
 
